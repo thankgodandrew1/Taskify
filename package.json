@@ -1,0 +1,19 @@
+{
+  "name": "taskify",
+  "version": "1.0.0",
+  "description": "for cse 341 team project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thankgodandrew1/Taskify.git"
+  },
+  "author": "ThankGod Andrew, Jones Parker, and Steven Valencia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thankgodandrew1/Taskify/issues"
+  },
+  "homepage": "https://github.com/thankgodandrew1/Taskify#readme"
+}
