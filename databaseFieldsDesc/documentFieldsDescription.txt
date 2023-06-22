@@ -1,0 +1,56 @@
+This is open for a change, if you feel it would be difficult for us to implement before the semester runs out let me know.
+
+
+Explanation of the fields in our MongoDB database:
+
+For the User Document:
+
+_id: A unique identifier.
+name: The name of the user.
+email: The email.
+username: The username.
+password: The hashed password of the user.
+role: The role or position of the user in the team or project. 
+phoneNumber: The users phone number.
+created_at: The timestamp .
+address: The users address.
+
+For the Task Document:
+
+_id: Unique identifier for the task.
+title: Title or name of the task.
+description: description of the task.
+assignee: ID of the user assigned to the task.
+status: Current status of the task e.g in_progress or completed, - this would be created in the task controller.
+priority: Priority level of the task high, medium or low.
+dueDate: Due date and time for completing the task - this would also be specified in the controller
+created_at: Timestamp indicating the creation date of the task - this field would be generated automatically using the new Date() function in the controller.
+attachments: List of file attachments associated with the task - array.
+tags: Tags or labels assigned to the task - array.
+
+
+For the Comment Document:
+
+_id: Unique identifier for the comment.
+taskId: ID of the task to which the comment belongs.
+userId: An ID of the user who posted the comment.
+text: The comment or the comment content.
+created_at: Timestamp indicating the creation date and time of the comment - this would also be automatically generated.
+likes: The number of likes received for the comment - an array.
+replies: List of replies to the comment - an array as well.
+edited: Indicates if the comment has been edited (true/false) - this field will be automatically generated as well .
+deleted: Indicates if the comment has been deleted (true/false) - this field will be automatically generated.
+
+
+For the Project Document:
+
+_id: Unique identifier for the project.
+title: Title or name of the project.
+description: A concise description of the project
+manager: ID of the user who is managing the project.
+status: Current status of the project example:  active or completed
+startDate: Start date of the project - generated once a POST request is made to create a project.
+dueDate: Due date of the project.
+teamMembers: List of user IDs who are part of the project team
+tasks: List of task IDs associated with the project.
+progress: Overall progress of the project (in percentage).
