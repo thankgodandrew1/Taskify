@@ -3,7 +3,7 @@ const mongodb = require('../config/db');
 const ObjectId = require('mongodb').ObjectId;
 
 const getTasks = async (req, res) => {
-    const response = await mongodb.getDb().db('Taskify').collection('tasks').find();
+    const response = await mongodb.connect().db('Taskify').collection('tasks').find();
     console.log(response);
     response.toArray().then((lists) => {
         res.setHeader('Content-Type', 'application/json');
@@ -18,7 +18,7 @@ const getSingle = async (req, res) => {
     }
 
     const taskId = new ObjectId(req.params.id);
-    const response = await mongodb.getDb().db('Taskify').collection('tasks').find({ _id: taskId });
+    const response = await mongodb.connect().db('Taskify').collection('tasks').find({ _id: taskId });
     console.log(response);
 
     response.toArray().then((err, lists) => {
