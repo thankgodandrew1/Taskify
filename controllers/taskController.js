@@ -2,7 +2,7 @@ const mongodb = require('../config/db');
 
 const ObjectId = require('mongodb').ObjectId;
 
-const getAll = async (req, res) => {
+const getTasks = async (req, res) => {
     const response = await mongodb.getDb().db('Taskify').collection('tasks').find();
     console.log(response);
     response.toArray().then((lists) => {
@@ -31,6 +31,6 @@ const getSingle = async (req, res) => {
 };
 
 module.exports = {
-    getAll,
+    getTasks,
     getSingle
 }
