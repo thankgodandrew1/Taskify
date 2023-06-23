@@ -1,36 +1,29 @@
-const mongodb = require('../config/db');
+const { ObjectId } = require('mongodb');
 
-const ObjectId = require('mongodb').ObjectId;
-
-const getAll = async (req, res) => {
-    const response = await mongodb.getDb().db('Taskify').collection('users').find();
-    console.log(response);
-    response.toArray().then((lists) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(lists);
-    });
-};
-
-const getSingle = async (req, res) => {
-
-    if (!ObjectId.isValid(req.params.id)) {
-        res.status(400).json('Must use a valid user id to find a user.');
+module.exports = (usersCollection) => {
+  const getUsers = async (req, res) => {
+    try {
+      const users = await usersCollection.find({}).toArray();
+      res.json(users);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Server error');
     }
-
-    const userId = new ObjectId(req.params.id);
-    const response = await mongodb.getDb().db('Taskify').collection('users').find({ _id: userId });
-    console.log(response);
-
-    response.toArray().then((err, lists) => {
-        if(err){
-          res.status(400).json({ message: err });
-        }
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(lists[0]);
-    });
+  };
+  const getUserById = async (req, res) => {
+    try {
+      const user = await usersCollection.findOne({ _id: new ObjectId(req.params.id) });
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
+      res.json(user);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Server error');
+    }
+  };
+  return {
+    getUsers,
+    getUserById
+  };
 };
-
-module.exports = {
-    getAll,
-    getSingle
-}

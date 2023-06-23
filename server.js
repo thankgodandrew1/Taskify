@@ -6,6 +6,8 @@ const db = require('./config/db');
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger_output.json');
 
+const usersRoute = require('./routes/userRoutes');
+
 dotenv.config();
 
 const app = express();
@@ -20,6 +22,9 @@ db.connect()
 
     app.use(express.json());
     app.use('/', homeRoute);
+
+    // Pass the users collection to the users route
+    app.use('/users', usersRoute(database.usersCollection));
 
     app.use((req, res, next) => {
       const error = new Error('Not found');
@@ -45,4 +50,3 @@ db.connect()
   });
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-
