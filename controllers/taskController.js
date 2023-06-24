@@ -11,7 +11,30 @@ module.exports = (tasksCollection) => {
         }
     };
 
+    const createTask = async (req, res) => {
+        try {
+
+            const task = await tasksCollection.insertOne({
+              title: req.body.title,
+              description: req.body.description,
+              assignee: req.body.assignee,
+              status: req.body.status,
+              priority: req.body.priority,
+              dueDate: req.body.dueDate,
+              created_at: req.body.created_at,
+              attachments: req.body.attachments,
+              tags: req.body.tags
+            });
+            res.json(task);
+      
+          } catch (error) {
+            console.error(error);
+            res.status(500).send('Server error');
+          }
+    }
+
     return{
-        getTasks
+        getTasks,
+        createTask
     }
 }

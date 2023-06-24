@@ -24,3 +24,20 @@ content-type: application/json
 
 GET http://localhost:3000/tasks
 ###
+
+###
+POST http://localhost:3000/tasks HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Testing",
+    "description": "Testing",
+    "assignee": "Testing",
+    "status": "Testing",
+    "priority": "Testing",
+    "dueDate":"Testing",
+    "created_at":"Testing",
+    "attachments": "Testing",
+    "tags": "Testing"
+}
+###
