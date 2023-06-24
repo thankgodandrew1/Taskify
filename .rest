@@ -1,0 +1,43 @@
+GET http://localhost:3000/users
+###
+
+GET http://localhost:3000/users/648f09ea8843d9903a39503e
+###
+
+GET http://localhost:3000/users/email/andy663@cse341.net
+###
+
+###
+POST http://localhost:3000/users HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Testing",
+    "email": "Testing",
+    "username": "Testing",
+    "password": "Testing",
+    "role": "Testing",
+    "phoneNumber":"Testing",
+    "address":"Testing"
+}
+###
+
+GET http://localhost:3000/tasks
+###
+
+###
+POST http://localhost:3000/tasks HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Testing",
+    "description": "Testing",
+    "assignee": "Testing",
+    "status": "Testing",
+    "priority": "Testing",
+    "dueDate":"Testing",
+    "created_at":"Testing",
+    "attachments": "Testing",
+    "tags": "Testing"
+}
+###

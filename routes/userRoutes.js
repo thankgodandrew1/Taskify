@@ -10,13 +10,13 @@ module.exports = (usersCollection) => {
 
   router.get('/:id', getUserById);
 
-  router.get('/:email', getUserByEmail);
+  router.get('/email/:email', getUserByEmail);
 
   router.post('/', createUser);
 
-  router.put('/:id', updateUser);
+  //router.put('/:id', updateUser);
 
-  router.delete('/:id', deleteUser);
+  //router.delete('/:id', deleteUser);
 
   return router;
 };
