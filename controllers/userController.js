@@ -25,7 +25,9 @@ module.exports = (usersCollection) => {
 
   const getUserByEmail = async (req, res) => {
     try {
-      const user = await usersCollection.findOne({ email: 'andy663@cse341.net'});
+      const email = ObjectId(req.params.id); //Don't know how to get the email
+      const user = await usersCollection.findOne({ email: email});
+      console.log(email)
       if (!user) {
         return res.status(404).send('User not found');
       }
