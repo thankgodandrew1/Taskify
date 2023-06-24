@@ -10,9 +10,9 @@ module.exports = (usersCollection) => {
 
   router.get('/:id', getUserById);
 
-  //router.get('/:email', getUserByEmail);
+  router.get('/email/:email', getUserByEmail);
 
-  //router.post('/', createUser);
+  router.post('/', createUser);
 
   //router.put('/:id', updateUser);
 
