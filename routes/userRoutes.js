@@ -14,9 +14,9 @@ module.exports = (usersCollection) => {
 
   router.post('/', createUser);
 
-  //router.put('/:id', updateUser);
+  router.put('/:id', updateUser);
 
-  //router.delete('/:id', deleteUser);
+  router.delete('/:id', deleteUser);
 
   return router;
 };

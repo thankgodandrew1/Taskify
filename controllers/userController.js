@@ -56,11 +56,52 @@ module.exports = (usersCollection) => {
     }
   };
 
+  const updateUser = async (req, res) => {
+    try {
+      const userId = new ObjectId(req.params.id);
+      const user = {
+        name: req.body.name,
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password,
+        role: req.body.role,
+        phoneNumber: req.body.phoneNumber,
+        address: req.body.address
+      };
+      const response = await mongodb.getDb().db('Taskify').collection('users').replaceOne({ _id: userId }, user);
+      console.log(response);
+      if (response.modifiedCount > 0) {
+        res.status(204).send();
+      } else {
+        res.status(500).json(response.error || 'Some error occurred while updating this user entry.');
+      }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  };
+
+  const deleteUser = async (req, res) => {
+    try{
+        const userId = new ObjectId(req.params.id);
+        const response = await mongodb.getDb().db('Taskify').collection('users').deleteOne({ _id: userId }, true);
+        console.log(response);
+        if (response.deletedCount > 0) {
+            res.status(204).send();
+        } else {
+            res.status(500).json(response.error || 'Some error occurred while deleting the user.');
+        }
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
+
 
   return {
     getUsers,
     getUserById,
     getUserByEmail,
-    createUser
+    createUser,
+    updateUser,
+    deleteUser
   };
 };

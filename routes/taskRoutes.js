@@ -11,8 +11,8 @@ module.exports = (tasksCollection) => {
     //router.get('/:status', tasksController.getTasksByStatus);
     //router.get('/:duedate', tasksController.getTasksByDuedate);
     router.post('/', tasksController.createTask);
-    //router.put('/:id', tasksController.updateTask);
-    //router.delete('/:id', tasksController.deleteTask);
+    router.put('/:id', tasksController.updateTask);
+    router.delete('/:id', tasksController.deleteTask);
   
     return router;
 };

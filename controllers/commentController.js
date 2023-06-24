@@ -30,7 +30,23 @@ const getSingle = async (req, res) => {
     });
 };
 
+const deleteComment = async (req, res) => {
+    try{
+        const commentId = new ObjectId(req.params.id);
+        const response = await mongodb.getDb().db('Taskify').collection('comments').deleteOne({ _id: commentId }, true);
+        console.log(response);
+        if (response.deletedCount > 0) {
+            res.status(204).send();
+        } else {
+            res.status(500).json(response.error || 'Some error occurred while deleting the comment.');
+        }
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
+
 module.exports = {
     getAll,
-    getSingle
+    getSingle,
+    deleteComment
 }
