@@ -176,7 +176,7 @@
         }
       }
     },
-    "/users/{email}": {
+    "/users/email/{email}": {
       "get": {
         "tags": ["Taskify users API endpoints"],
         "description": "Retrieve a user by its email",
