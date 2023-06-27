@@ -12,22 +12,28 @@ module.exports = (usersCollection) => {
   };
   const getUserById = async (req, res) => {
     try {
-      const user = await usersCollection.findOne({ _id: new ObjectId(req.params.id) });
+      const userId = req.params.id;
+      if (!ObjectId.isValid(userId)) {
+        return res.status(400).send('Invalid user ID');
+      }
+  
+      const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
       if (!user) {
         return res.status(404).send('User not found');
       }
+      
       res.json(user);
     } catch (error) {
       console.error(error);
       res.status(500).send('Server error');
     }
   };
-
+  
   const getUserByEmail = async (req, res) => {
     try {
       //Don't know how to get the email
-      const user = await usersCollection.findOne({ email: 'Testing'});
-      console.log(user)
+      const user = await usersCollection.findOne({ email: req.params.email });
+      // console.log(user)
       if (!user) {
         return res.status(404).send('User not found');
       }

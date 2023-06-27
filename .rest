@@ -6,7 +6,7 @@ GET http://localhost:3000/users
 GET http://localhost:3000/users/648f09ea8843d9903a39503e
 ###
 
-GET http://localhost:3000/users/email/Testing
+GET http://localhost:3000/users/email/andy663@cse341.net
 ###
 
 ###
