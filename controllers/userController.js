@@ -25,9 +25,9 @@ module.exports = (usersCollection) => {
 
   const getUserByEmail = async (req, res) => {
     try {
-      const email = ObjectId(req.params.id); //Don't know how to get the email
-      const user = await usersCollection.findOne({ email: email});
-      console.log(email)
+      //Don't know how to get the email
+      const user = await usersCollection.findOne({ email: 'Testing'});
+      console.log(user)
       if (!user) {
         return res.status(404).send('User not found');
       }
@@ -60,8 +60,8 @@ module.exports = (usersCollection) => {
 
   const updateUser = async (req, res) => {
     try {
-      const userId = new ObjectId(req.params.id);
-      const user = {
+    
+      const response = await usersCollection.replaceOne({ _id: new ObjectId(req.params.id) }, user = {
         name: req.body.name,
         email: req.body.email,
         username: req.body.username,
@@ -69,16 +69,18 @@ module.exports = (usersCollection) => {
         role: req.body.role,
         phoneNumber: req.body.phoneNumber,
         address: req.body.address
-      };
-      const response = await mongodb.getDb().db('Taskify').collection('users').replaceOne({ _id: userId }, user);
+      });
       console.log(response);
-      if (response.modifiedCount > 0) {
-        res.status(204).send();
-      } else {
-        res.status(500).json(response.error || 'Some error occurred while updating this user entry.');
-      }
-    } catch (err) {
-      res.status(500).json(err);
+
+      res.json(response);
+      //if (response.modifiedCount > 0) {
+      //  res.status(204).send();
+      //} else {
+      //  res.status(500).json(response.error || 'Some error occurred while updating this user entry.');
+      //}
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Server error');
     }
   };
 

@@ -7,10 +7,8 @@ module.exports = (projectsCollection) => {
     projectsController(projectsCollection);
 
   router.get('/', getProjects);
-
   router.get('/:id', getProjectById);
-
-  //router.post('/', createProject);
+  router.post('/', createProject);
 
   //router.put('/:id', updateProject);
 

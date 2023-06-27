@@ -3,22 +3,11 @@ const router = express.Router();
 const commentsController = require('../controllers/commentController');
 
 module.exports = (commentsCollection) => {
-  const { getComments } =
+  const { getComments, getCommentById, getCommentsByTags, createComment, updateComment, deleteComment } =
     commentsController(commentsCollection);
 
   router.get('/', getComments);
-
-
-  return router;
-};
-
-//module.exports = (commentsCollection) => {
-//  const { getComments, getCommentById, getCommentsByTags, createComment, updateComment, deleteComment } =
-//    commentsController(commentsCollection);
-
-  //router.get('/', getComments);
-
-  //router.get('/:id', getCommentById);
+  router.get('/:id', getCommentById);
 
   //router.get('/:tags', getCommentsByTags);
 
@@ -28,5 +17,5 @@ module.exports = (commentsCollection) => {
 
   //router.delete('/:id', deleteComment);
 
-//  return router;
-//};
+  return router;
+};

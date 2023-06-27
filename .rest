@@ -1,3 +1,5 @@
+//USERS
+
 GET http://localhost:3000/users
 ###
 
@@ -12,15 +14,33 @@ POST http://localhost:3000/users HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Testing",
-    "email": "Testing",
-    "username": "Testing",
-    "password": "Testing",
-    "role": "Testing",
-    "phoneNumber":"Testing",
-    "address":"Testing"
+    "name": "Testing3",
+    "email": "Testing3",
+    "username": "Testing3",
+    "password": "Testing3",
+    "role": "Testing3",
+    "phoneNumber":"Testing3",
+    "address":"Testing3"
 }
 ###
+
+###
+PUT http://localhost:3000/users/64972f67390ed53d52fe483a HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Testing updated",
+    "email": "Testing updated",
+    "username": "Testing updated",
+    "password": "Testing updated",
+    "role": "Testing updated",
+    "phoneNumber":"Testing updated",
+    "address":"Testing updated"
+}
+###
+
+//TASKS
+
 
 GET http://localhost:3000/tasks
 ###
@@ -42,5 +62,34 @@ content-type: application/json
 }
 ###
 
+
+//PROJECTS
+
 GET http://localhost:3000/projects
+###
+
+###
+POST http://localhost:3000/projects HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Testing project",
+    "description":"Testing project", 
+    "manager": "Testing project",
+    "status": "Testing project",
+    "teamMembers":"Testing project", 
+    "tasks": "Testing project",
+    "progress":"Testing project" 
+}
+###
+
+
+
+
+//COMMENTS
+
+GET http://localhost:3000/comments
+###
+
+GET http://localhost:3000/comments/648f0cb48843d9903a395044
 ###

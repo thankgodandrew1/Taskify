@@ -7,16 +7,11 @@ module.exports = (usersCollection) => {
     usersController(usersCollection);
 
   router.get('/', getUsers);
-
   router.get('/:id', getUserById);
-
   router.get('/email/:email', getUserByEmail);
-
   router.post('/', createUser);
-
   router.put('/:id', updateUser);
-
   router.delete('/:id', deleteUser);
-
+  
   return router;
 };

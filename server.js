@@ -9,7 +9,7 @@ const swaggerFile = require('./swagger_output.json');
 const usersRoute = require('./routes/userRoutes');
 const tasksRoute = require('./routes/taskRoutes');
 const projectsRoute = require('./routes/projectRoutes');
-//const commentsRoute = require('./routes/commentRoutes');
+const commentsRoute = require('./routes/commentRoutes');
 
 dotenv.config();
 
@@ -30,7 +30,7 @@ db.connect()
     app.use('/users', usersRoute(database.usersCollection));
     app.use('/tasks', tasksRoute(database.tasksCollection));
     app.use('/projects', projectsRoute(database.projectsCollection));
-    //app.use('/comments', commentsRoute(database.commentsCollection));
+    app.use('/comments', commentsRoute(database.commentsCollection));
 
     app.use((req, res, next) => {
       const error = new Error('Not found');

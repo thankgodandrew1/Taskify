@@ -25,6 +25,25 @@ module.exports = (projectsCollection) => {
           }
     };
 
+    const createProject = async (req, res) => {
+        try {
+            const project = await projectsCollection.insertOne({
+              title: req.body.title,
+              description: req.body.description,
+              manager: req.body.manager,
+              status: req.body.status,
+              teamMembers: req.body.teamMembers,
+              tasks: req.body.tasks,
+              progress: req.body.progress
+            });
+            res.json(project);
+      
+          } catch (error) {
+            console.error(error);
+            res.status(500).send('Server error');
+          }
+    };
+
     const deleteProject = async (req, res) => {
         try{
             const projectId = new ObjectId(req.params.id);
@@ -42,7 +61,8 @@ module.exports = (projectsCollection) => {
 
     return {
         getProjects,
-        getProjectById
+        getProjectById,
+        createProject
     };
 };
 
