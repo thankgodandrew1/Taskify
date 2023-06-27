@@ -10,11 +10,11 @@ module.exports = (projectsCollection) => {
 
   router.get('/:id', getProjectById);
 
-  router.post('/', createProject);
+  //router.post('/', createProject);
 
-  router.put('/:id', updateProject);
+  //router.put('/:id', updateProject);
 
-  router.delete('/:id', deleteProject);
+  //router.delete('/:id', deleteProject);
 
   return router;
 };

@@ -1,52 +1,49 @@
-const mongodb = require('../config/db');
+const { ObjectId } = require('mongodb');
 
-const ObjectId = require('mongodb').ObjectId;
+module.exports = (projectsCollection) => {
+    const getProjects = async (req, res) => {
+        try {
+            const projects = await projectsCollection.find({}).toArray();
+            res.json(projects);
+          } catch (error) {
+            console.error(error);
+            res.status(500).send('Server error');
+          }
+    };
 
-const getAll = async (req, res) => {
-    const response = await mongodb.getDb().db('Taskify').collection('projects').find();
-    console.log(response);
-    response.toArray().then((lists) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(lists);
-    });
-};
+    const getProjectById = async (req, res) => {
 
-const getSingle = async (req, res) => {
+        try {
+            const project = await projectsCollection.findOne({ _id: new ObjectId(req.params.id) });
+            if (!project) {
+              return res.status(404).send('Project not found');
+            }
+            res.json(project);
+          } catch (error) {
+            console.error(error);
+            res.status(500).send('Server error');
+          }
+    };
 
-    if (!ObjectId.isValid(req.params.id)) {
-        res.status(400).json('Must use a valid project id to find a project.');
-    }
-
-    const projectId = new ObjectId(req.params.id);
-    const response = await mongodb.getDb().db('Taskify').collection('projects').find({ _id: projectId });
-    console.log(response);
-
-    response.toArray().then((err, lists) => {
-        if(err){
-          res.status(400).json({ message: err });
+    const deleteProject = async (req, res) => {
+        try{
+            const projectId = new ObjectId(req.params.id);
+            const response = await mongodb.getDb().db('Taskify').collection('projects').deleteOne({ _id: projectId }, true);
+            console.log(response);
+            if (response.deletedCount > 0) {
+                res.status(204).send();
+            } else {
+                res.status(500).json(response.error || 'Some error occurred while deleting the project.');
+            }
+        } catch (err) {
+            res.status(500).json(err);
         }
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(lists[0]);
-    });
+    };
+
+    return {
+        getProjects,
+        getProjectById
+    };
 };
 
-const deleteProject = async (req, res) => {
-    try{
-        const projectId = new ObjectId(req.params.id);
-        const response = await mongodb.getDb().db('Taskify').collection('projects').deleteOne({ _id: projectId }, true);
-        console.log(response);
-        if (response.deletedCount > 0) {
-            res.status(204).send();
-        } else {
-            res.status(500).json(response.error || 'Some error occurred while deleting the project.');
-        }
-    } catch (err) {
-        res.status(500).json(err);
-    }
-};
-
-module.exports = {
-    getAll,
-    getSingle,
-    deleteProject
-}
+    

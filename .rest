@@ -41,3 +41,6 @@ content-type: application/json
     "tags": "Testing"
 }
 ###
+
+GET http://localhost:3000/projects
+###
