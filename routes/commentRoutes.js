@@ -11,7 +11,7 @@ module.exports = (commentsCollection) => {
 
   //router.get('/:tags', getCommentsByTags);
 
-  //router.post('/', createComment);
+  router.post('/', createComment);
 
   //router.put('/:id', updateComment);
 

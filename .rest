@@ -1,4 +1,4 @@
-//USERS
+//--------------USERS-----------------------------------------------
 
 GET http://localhost:3000/users
 ###
@@ -39,7 +39,9 @@ content-type: application/json
 }
 ###
 
-//TASKS
+
+
+//---------------TASKS----------------------------------
 
 
 GET http://localhost:3000/tasks
@@ -63,9 +65,12 @@ content-type: application/json
 ###
 
 
-//PROJECTS
+//------------------PROJECTS---------------------------------------------------
 
 GET http://localhost:3000/projects
+###
+
+GET http://localhost:3000/projects/649b136de5b105631c1c9dce
 ###
 
 ###
@@ -86,10 +91,24 @@ content-type: application/json
 
 
 
-//COMMENTS
+//---------------------COMMENTS----------------------------------------------
 
 GET http://localhost:3000/comments
 ###
 
 GET http://localhost:3000/comments/648f0cb48843d9903a395044
+###
+
+POST http://localhost:3000/comments HTTP/1.1
+content-type: application/json
+
+{
+    "taskId": "Testing comment",
+    "userId": "Testing comment",
+    "text": "Testing comment",
+    "likes": "Testing comment",
+    "replies": "Testing comment",
+    "edited": "Testing comment",
+    "deleted": "Testing comment"
+}
 ###

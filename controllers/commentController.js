@@ -24,8 +24,28 @@ module.exports = (commentsCollection) => {
       }
     };
 
+    const createComment = async (req, res) => {
+      try {
+        const comment = await commentsCollection.insertOne({
+          taskId: req.body.taskId,
+          userId: req.body.userId,
+          text: req.body.text,
+          likes: req.body.likes,
+          replies: req.body.replies,
+          edited: req.body.edited,
+          deleted: req.body.deleted
+        });
+        res.json(comment);
+  
+      } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+      }
+    };
+
     return {
         getComments,
-        getCommentById
+        getCommentById,
+        createComment
     }
 };
