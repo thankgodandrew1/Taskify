@@ -8,8 +8,8 @@ module.exports = (tasksCollection) => {
   
     router.get('/', getTasks);
   
-    //router.get('/:status', tasksController.getTasksByStatus);
-    //router.get('/:duedate', tasksController.getTasksByDuedate);
+    router.get('/:status', getTasksByStatus);
+    router.get('/duedate/:duedate', getTasksByDuedate);
     router.post('/', createTask);
     router.put('/:id', updateTask);
     router.delete('/:id', deleteTask);

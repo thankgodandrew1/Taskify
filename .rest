@@ -6,7 +6,7 @@ GET http://localhost:3000/users
 GET http://localhost:3000/users/648f09ea8843d9903a39503e
 ###
 
-GET http://localhost:3000/users/email/andy663@cse341.net
+GET http://localhost:3000/users/email/steven@cse341.net
 ###
 
 ###
@@ -47,20 +47,27 @@ content-type: application/json
 GET http://localhost:3000/tasks
 ###
 
+GET http://localhost:3000/tasks/TestingStatus
+###
+
+GET http://localhost:3000/tasks/duedate/Testing
+###
+
+
 ###
 POST http://localhost:3000/tasks HTTP/1.1
 content-type: application/json
 
 {
-    "title": "Testing",
-    "description": "Testing",
-    "assignee": "Testing",
-    "status": "Testing",
-    "priority": "Testing",
-    "dueDate":"Testing",
-    "created_at":"Testing",
-    "attachments": "Testing",
-    "tags": "Testing"
+    "title": "Testing4",
+    "description": "Testing4",
+    "assignee": "Testing4",
+    "status": "TestingStatus",
+    "priority": "Testing4",
+    "dueDate":"TestingDueDate",
+    "created_at":"Testing4",
+    "attachments": "Testing4",
+    "tags": "Testing4"
 }
 ###
 

@@ -72,12 +72,46 @@ module.exports = (tasksCollection) => {
       } catch (err) {
           res.status(500).json(err);
       }
-  };
+    };
 
-    return{
+    const getTasksByStatus = async (req, res) => {
+      try {
+        
+        const task = await tasksCollection.findOne({ status: req.params.status });
+        
+        if (!task) {
+          return res.status(404).send('Task not found');
+        }
+        res.json(task);
+
+      } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+      }
+    };
+
+    const getTasksByDuedate = async (req, res) => {
+      try {
+        
+        const task = await tasksCollection.findOne({ dueDate: req.params.dueDate });
+        
+        if (!task) {
+          return res.status(404).send('Task not found');
+        }
+        res.json(task);
+
+      } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+      }
+    };
+
+    return {
         getTasks,
         createTask,
         updateTask,
-        deleteTask
+        deleteTask,
+        getTasksByStatus,
+        getTasksByDuedate
     }
 }
