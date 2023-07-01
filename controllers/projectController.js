@@ -44,6 +44,30 @@ module.exports = (projectsCollection) => {
           }
     };
 
+    const updateProject = async (req, res) => {
+        try {
+          const projectId = new ObjectId(req.params.id);
+          const project = {
+            title: req.body.title,
+              description: req.body.description,
+              manager: req.body.manager,
+              status: req.body.status,
+              teamMembers: req.body.teamMembers,
+              tasks: req.body.tasks,
+              progress: req.body.progress
+          };
+          const response = await mongodb.getDb().db('Taskify').collection('projects').replaceOne({ _id: projectId }, project);
+          console.log(response);
+          if (response.modifiedCount > 0) {
+            res.status(204).send();
+          } else {
+            res.status(500).json(response.error || 'Some error occurred while updating this project entry.');
+          }
+        } catch (err) {
+          res.status(500).json(err);
+        }
+      };
+
     const deleteProject = async (req, res) => {
         try{
             const projectId = new ObjectId(req.params.id);
@@ -62,7 +86,9 @@ module.exports = (projectsCollection) => {
     return {
         getProjects,
         getProjectById,
-        createProject
+        createProject,
+        updateProject,
+        deleteProject
     };
 };
 
