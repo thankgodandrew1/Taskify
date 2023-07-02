@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "description": "An API to manage teams"
   },
-  "host": "taskify-d56k.onrender",
+  "host": "taskify-d56k.onrender.com",
   "basePath": "/",
   "schemes": ["https", "http"],
   "paths": {
