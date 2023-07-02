@@ -93,10 +93,10 @@ module.exports = (usersCollection) => {
   const deleteUser = async (req, res) => {
     try{
         const userId = new ObjectId(req.params.id);
-        const response = await mongodb.getDb().db('Taskify').collection('users').deleteOne({ _id: userId }, true);
+        const response = await usersCollection.deleteOne({ _id: userId }, true);
         console.log(response);
         if (response.deletedCount > 0) {
-            res.status(204).send();
+            res.status(200).send();
         } else {
             res.status(500).json(response.error || 'Some error occurred while deleting the user.');
         }

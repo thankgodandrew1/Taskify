@@ -9,7 +9,7 @@ module.exports = (commentsCollection) => {
   router.get('/', getComments);
   router.get('/:id', getCommentById);
 
-  //router.get('/:tags', getCommentsByTags);
+  router.get('tags/:tags', getCommentsByTags);
 
   router.post('/', createComment);
 

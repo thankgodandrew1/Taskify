@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "description": "An API to manage teams"
   },
-  "host": "taskify-d56k.onrender.com",
+  "host": "taskify-d56k.onrender",
   "basePath": "/",
   "schemes": ["https", "http"],
   "paths": {
@@ -43,6 +43,10 @@
                 "email": {
                   "type": "string",
                   "example": "johnnydang@cse341.net"
+                },
+                "username": {
+                  "type": "string",
+                  "example": "parzival"
                 },
                 "password": {
                   "type": "string",
@@ -123,6 +127,10 @@
                 "email": {
                   "type": "string",
                   "example": "johnnydang@cse341.net"
+                },
+                "username": {
+                  "type": "string",
+                  "example": "parzival"
                 },
                 "password": {
                   "type": "string",
@@ -248,9 +256,11 @@
                   "type": "string",
                   "example": "high"
                 },
-                "duedate": {
+                "dueDate": {
                   "type": "string",
-                  "example": "2023-07-01T12:00:00Z"
+                  "format": "date-time",
+                  "example": "2023-07-02T12:00:00",
+                  "description": "The due date and time for the task. Format: YYYY-MM-DDTHH:MM:SS"
                 },
                 "attachments": {
                   "type": "array",
@@ -266,7 +276,8 @@
                   },
                   "example": ["tag1", "tag2"]
                 }
-              }
+              },
+              "required": ["title", "description", "assignee", "status", "priority"]
             }
           }
         ],
@@ -319,9 +330,11 @@
                   "type": "string",
                   "example": "high"
                 },
-                "duedate": {
+                "dueDate": {
                   "type": "string",
-                  "example": "2023-07-01T12:00:00Z"
+                  "format": "date-time",
+                  "example": "2023-07-02T12:00:00",
+                  "description": "The due date and time for the task. Format: YYYY-MM-DDTHH:MM:SS"
                 },
                 "attachments": {
                   "type": "array",
@@ -337,7 +350,8 @@
                   },
                   "example": ["tag1", "tag2"]
                 }
-              }
+              },
+              "required": ["title", "description", "assignee", "status", "priority"]
             }
           }
         ],
@@ -373,7 +387,7 @@
         }
       }
     },
-    "tasks/{status}": {
+    "/tasks/{status}": {
       "get": {
         "tags": ["Taskify tasks API endpoints"],
         "description": "Retrieve tasks by its status",
@@ -398,16 +412,16 @@
         }
       }
     },
-    "tasks/{duedate}": {
+    "/tasks/dueDate/{dueDate}": {
       "get": {
         "tags": ["Taskify tasks API endpoints"],
         "description": "Retrieve tasks by duedate",
         "summary": "Retrieves tasks with the same duedate",
         "parameters": [
           {
-            "name": "duedate",
+            "name": "dueDate",
             "in": "path",
-            "description": "The duedate string is required and functions as an id",
+            "description": "The dueDate is required and functions as an id. It can be either a string or a number.",
             "required": true,
             "type": "string"
           }
@@ -466,6 +480,18 @@
                   "type": "string",
                   "example": "active"
                 },
+                "startDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2023-07-02T12:00:00",
+                  "description": "The start date and time for the task. Format: YYYY-MM-DDTHH:MM:SS"
+                },
+                "dueDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2023-07-02T12:00:00",
+                  "description": "The due date and time for the task. Format: YYYY-MM-DDTHH:MM:SS"
+                },
                 "teamMembers": {
                   "type": "array",
                   "items": {
@@ -484,7 +510,8 @@
                   "type": "string",
                   "example": "70%"
                 }
-              }
+              },
+              "required": ["title", "description", "manager", "teamMembers", "tasks"]
             }
           }
         ],
@@ -555,6 +582,18 @@
                 "status": {
                   "type": "string",
                   "example": "active"
+                }, 
+                "startDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2023-07-02T12:00:00",
+                  "description": "The start date and time for the task. Format: YYYY-MM-DDTHH:MM:SS"
+                },
+                "dueDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2023-07-02T12:00:00",
+                  "description": "The due date and time for the task. Format: YYYY-MM-DDTHH:MM:SS"
                 },
                 "teamMembers": {
                   "type": "array",
@@ -573,7 +612,8 @@
                 "progress": {
                   "type": "string",
                   "example": "70%"
-                }
+                },
+                "required": ["title", "description", "manager", "teamMembers", "tasks"]
               }
             }
           }
@@ -722,7 +762,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "comment id is required",
+            "description": "Comment ID (required)",
             "required": true,
             "type": "string"
           },
@@ -757,7 +797,7 @@
             "description": "Server Error"
           }
         }
-      },
+      },      
       "delete": {
         "tags": ["Taskify comments API endpoints"],
         "summary": "Deletes a specific comment based on its ID",
@@ -781,7 +821,7 @@
         }
       }
     },
-    "comments/{tags}": {
+    "/comments/tags/{tags}": {
       "get": {
         "tags": ["Taskify comments API endpoints"],
         "description": "Retrieve comments by tags",
