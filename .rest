@@ -15,23 +15,23 @@ content-type: application/json
 
 {
     "name": "Testing3",
-    "email": "Testing3",
+    "email": "Testing3@gmail.com",
     "username": "Testing3",
-    "password": "Testing3",
+    "password": "Pa55W@rd",
     "role": "Testing3",
-    "phoneNumber":"Testing3",
-    "address":"Testing3"
+    "phoneNumber":"90299197433",
+    "address":"Te"
 }
 ###
 
 ###
-PUT http://localhost:3000/users/64972f67390ed53d52fe483a HTTP/1.1
+PUT http://localhost:3000/users/648f09ea8843d9903a39503e HTTP/1.1
 content-type: application/json
 
 {
     "name": "Testing updated",
     "email": "Testing updated",
-    "username": "Testing updated",
+    "username": "Nhmos",
     "password": "Testing updated",
     "role": "Testing updated",
     "phoneNumber":"Testing updated",
