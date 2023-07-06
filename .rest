@@ -29,9 +29,9 @@ PUT http://localhost:3000/users/648f09ea8843d9903a39503e HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Testing updated",
+    "name": "",
     "email": "Testing updated",
-    "username": "Nhmos",
+    "username": "Nymos",
     "password": "Testing updated",
     "role": "Testing updated",
     "phoneNumber":"Testing updated",
@@ -62,12 +62,26 @@ content-type: application/json
     "title": "Testing4",
     "description": "Testing4",
     "assignee": "Testing4",
-    "status": "TestingStatus",
-    "priority": "Testing4",
-    "dueDate":"TestingDueDate",
-    "created_at":"Testing4",
-    "attachments": "Testing4",
-    "tags": "Testing4"
+    "status": "completed",
+    "priority": "medium",
+    "dueDate":"2033-07-01T12:00:00Z",
+    "attachments": ["Testing4", "My PDF"],
+    "tags": ["Testing4", "Testing da Four"]
+}
+
+###
+PUT http://localhost:3000/tasks/64a3fecffdc22343a2523097 HTTP/1.1
+content-type: application/json
+
+{
+    "title": "s",
+    "description": "",
+    "assignee": "",
+    "status": "completed",
+    "priority": "l",
+    "dueDate":"2033-07-01T12:00:00Z",
+    "attachments": ["Testing4", "My PDF", "her_pdf"],
+    "tags": ["Testing4", "Testing da Four"]
 }
 ###
 

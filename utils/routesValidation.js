@@ -67,12 +67,11 @@ exports.validateRoutes = (entity) => {
           .isEmail()
           .withMessage('Invalid email'),
         body('username')
-          .notEmpty()
-          .withMessage('Required! Please enter a username')
+          .optional()
           .custom(async (value, { req }) => {
             const { usersCollection } = req.app.locals;
             const user = await usersCollection.findOne({ username: value });
-            if (user) {
+            if (user && user._id.toString() !== req.params.userId) {
               throw new Error('Username already exists');
             }
           })
@@ -98,6 +97,94 @@ exports.validateRoutes = (entity) => {
           .withMessage('Address is required')
           .isLength({ min: 5, max: 150 })
           .withMessage('Address must be between 5 and 150 characters')
+      ];
+    }
+
+    case 'createTask': {
+      return [
+        body('title')
+          .notEmpty()
+          .withMessage('The title field is required')
+          .isLength({ max: 100 })
+          .withMessage('The title must be at most 100 characters long'),
+
+        body('description')
+          .notEmpty()
+          .withMessage('The description field is required')
+          .isLength({ max: 500 })
+          .withMessage('The description must be at most 500 characters long'),
+
+        body('assignee')
+          .notEmpty()
+          .withMessage('The assignee field is required')
+          .isLength({ max: 50 })
+          .withMessage('The assignee name must be at most 50 characters long'),
+
+        body('status')
+          .notEmpty()
+          .withMessage('The status field is required')
+          .isIn(['in_progress', 'completed', 'pending'])
+          .withMessage('Invalid status. Must be one of: in_progress, completed, pending'),
+
+        body('priority')
+          .notEmpty()
+          .withMessage('The priority field is required')
+          .isIn(['low', 'medium', 'high'])
+          .withMessage('Invalid priority. Must be one of: low, medium, high'),
+
+        body('dueDate')
+          .notEmpty()
+          .withMessage('The dueDate field is required')
+          .isISO8601()
+          .withMessage(
+            'Invalid date format. Must be in ISO 8601 format, e.g., "2023-07-01T12:00:00Z"'
+          ),
+
+        body('attachments').optional().isArray().withMessage('Attachments must be an array'),
+
+        body('tags').optional().isArray().withMessage('Tags must be an array')
+      ];
+    }
+    case 'updateTask': {
+      return [
+        body('title')
+          .notEmpty()
+          .withMessage('The title field is required')
+          .isLength({ max: 100 })
+          .withMessage('The title must be at most 100 characters long'),
+
+        body('description')
+          .notEmpty()
+          .withMessage('The description field is required')
+          .isLength({ max: 500 })
+          .withMessage('The description must be at most 500 characters long'),
+
+        body('assignee')
+          .notEmpty()
+          .withMessage('The assignee field is required')
+          .isLength({ max: 50 })
+          .withMessage('The assignee name must be at most 50 characters long'),
+
+        body('status')
+          .optional()
+          .isIn(['in_progress', 'completed', 'pending'])
+          .withMessage('Invalid status. Must be one of: in_progress, completed, pending'),
+
+        body('priority')
+          .optional()
+          .isIn(['low', 'medium', 'high'])
+          .withMessage('Invalid priority. Must be one of: low, medium, high'),
+
+        body('dueDate')
+          .optional()
+          .isISO8601()
+          .withMessage(
+            'Invalid date format. Must be in ISO 8601 format, e.g., "2023-07-01T12:00:00Z"'
+          ),
+
+        body('attachments').optional().isArray().withMessage('Attachments must be an array'),
+
+        body('tags').optional().isArray().withMessage('Tags must be an array')
       ];
     }
   }
