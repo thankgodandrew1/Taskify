@@ -1,4 +1,5 @@
 const { ObjectId } = require('mongodb');
+const { validationResult } = require('express-validator');
 
 module.exports = (tasksCollection) => {
   const getTasks = async (req, res) => {
@@ -13,6 +14,12 @@ module.exports = (tasksCollection) => {
 
   const createTask = async (req, res) => {
     try {
+      // This Check for any validation errors
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
       const { title, description, assignee, status, priority, attachments, tags, dueDate } =
         req.body;
 
@@ -37,6 +44,12 @@ module.exports = (tasksCollection) => {
 
   const updateTask = async (req, res) => {
     try {
+      // This Check for any validation errors
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
       const taskId = new ObjectId(req.params.id);
       const { title, description, assignee, status, priority, attachments, tags, dueDate } =
         req.body;
