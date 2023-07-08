@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const { ObjectId } = require('mongodb');
 
 module.exports = (commentsCollection) => {
@@ -26,6 +27,12 @@ module.exports = (commentsCollection) => {
 
   const createComment = async (req, res) => {
     try {
+      // This Check for any validation errors
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
       const { taskId, userId, text, likes, replies, tags } = req.body;
       const comment = await commentsCollection.insertOne({
         taskId: taskId,
@@ -46,6 +53,12 @@ module.exports = (commentsCollection) => {
 
   const updateComment = async (req, res) => {
     try {
+      // This Check for any validation errors
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
       const commentId = new ObjectId(req.params.id);
       const { text, tags } = req.body;
 

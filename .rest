@@ -19,8 +19,8 @@ content-type: application/json
     "username": "Testing3",
     "password": "Pa55W@rd",
     "role": "Testing3",
-    "phoneNumber":"90299197433",
-    "address":"Te"
+    "phoneNumber": "90299197433",
+    "address": "Te"
 }
 ###
 
@@ -34,8 +34,8 @@ content-type: application/json
     "username": "Nymos",
     "password": "Testing updated",
     "role": "Testing updated",
-    "phoneNumber":"Testing updated",
-    "address":"Testing updated"
+    "phoneNumber": "Testing updated",
+    "address": "Testing updated"
 }
 ###
 
@@ -64,13 +64,13 @@ content-type: application/json
     "assignee": "Testing4",
     "status": "completed",
     "priority": "medium",
-    "dueDate":"2033-07-01T12:00:00Z",
+    "dueDate": "2033-07-01T12:00:00Z",
     "attachments": ["Testing4", "My PDF"],
     "tags": ["Testing4", "Testing da Four"]
 }
 
 ###
-PUT http://localhost:3000/tasks/64a3fecffdc22343a2523097 HTTP/1.1
+PUT http://localhost:3000/tasks/64a3fecffdc22343a252309 HTTP/1.1
 content-type: application/json
 
 {
@@ -79,7 +79,7 @@ content-type: application/json
     "assignee": "",
     "status": "completed",
     "priority": "l",
-    "dueDate":"2033-07-01T12:00:00Z",
+    "dueDate": "2033-07-01T12:00:00Z",
     "attachments": ["Testing4", "My PDF", "her_pdf"],
     "tags": ["Testing4", "Testing da Four"]
 }
@@ -94,32 +94,43 @@ GET http://localhost:3000/projects
 GET http://localhost:3000/projects/649b136de5b105631c1c9dce
 ###
 
-###
+### Create Project
 POST http://localhost:3000/projects HTTP/1.1
-content-type: application/json
+Content-Type: application/json
 
 {
-    "title": "Testing project",
-    "description":"Testing project", 
-    "manager": "Testing project",
-    "status": "Testing project",
-    "teamMembers":"Testing project", 
-    "tasks": "Testing project",
-    "progress":"Testing project" 
+  "title": "Our Testing project",
+  "description": "Testing project",
+  "manager": "Testing project",
+  "status": "Testing project",
+  "startDate": "2000-01-01T00:00:00.000Z",
+  "dueDate": "2001-01-01T00:00:00.000Z",
+  "teamMembers": ["Testing project", "Aliyu"],
+  "tasks": ["Testing project", "Black", "Tail"],
+  "progress": "50"
+}
+### Update Project
+PUT http://localhost:3000/projects/64a9756800174a2409904506 HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Updated Testing project",
+  "description": "Updated Testing project",
+  "manager": "Updated Testing project",
+  "status": "Updated Testing project",
+  "startDate": "2023-07-08T14:40:40.817Z",
+  "dueDate": "2023-07-08T14:40:40.817Z",
+  "teamMembers": ["Updated Testing project"],
+  "tasks": ["Updated Testing project"],
+  "progress": "Updated Testing project"
 }
 ###
-
-
-
-
+DELETE http://localhost:3000/projects/64a96bab915d6d7b16efe342 
 //---------------------COMMENTS----------------------------------------------
-
-GET http://localhost:3000/comments
+GET http://localhost:3000/comments/
 ###
-
 GET http://localhost:3000/comments/648f0cb48843d9903a395044
 ###
-
 POST http://localhost:3000/comments HTTP/1.1
 content-type: application/json
 
@@ -132,4 +143,23 @@ content-type: application/json
     "edited": "Testing comment",
     "deleted": "Testing comment"
 }
-###
+### Create Comment
+POST http://localhost:3000/comments HTTP/1.1
+Content-Type: application/json
+
+{
+  "taskId": "IAmHraesvelgrDD_taskGOAT123",
+  "userId": "user_156660",
+  "text": "Great progress so far! Keep up the good work.",
+  "likes": 90,
+  "replies": ["She is doing great!"],
+  "tags": []
+}
+### Update Comment
+PUT http://localhost:3000/comments/64a983794a2d74fe8ef3addd HTTP/1.1
+Content-Type: application/json
+
+{
+  "text": "Updated comment. Great progress!",
+  "tags": ["Yo", "Node"]
+}

@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const { ObjectId } = require('mongodb');
 
 module.exports = (projectsCollection) => {
@@ -26,6 +27,12 @@ module.exports = (projectsCollection) => {
 
   const createProject = async (req, res) => {
     try {
+      // This Check for any validation errors
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
       const {
         title,
         description,
@@ -59,6 +66,12 @@ module.exports = (projectsCollection) => {
 
   const updateProject = async (req, res) => {
     try {
+      // This Check for any validation errors
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
       const projectId = new ObjectId(req.params.id);
       const {
         title,
@@ -72,21 +85,26 @@ module.exports = (projectsCollection) => {
         progress
       } = req.body;
 
-      const project = await projectsCollection.insertOne({
-        title: title,
-        description: description,
-        manager: manager,
-        status: status,
-        startDate: new Date(startDate),
-        dueDate: new Date(dueDate),
-        teamMembers: teamMembers,
-        tasks: tasks,
-        progress: progress,
-        created_at: new Date()
-      });
-      const response = await projectsCollection.replaceOne({ _id: projectId }, project);
-      console.log(response);
-      if (response.modifiedCount > 0) {
+      const response = await projectsCollection.findOneAndUpdate(
+        { _id: projectId },
+        {
+          $set: {
+            title: title,
+            description: description,
+            manager: manager,
+            status: status,
+            startDate: new Date(startDate),
+            dueDate: new Date(dueDate),
+            teamMembers: teamMembers,
+            tasks: tasks,
+            progress: progress,
+            updated_at: new Date()
+          }
+        },
+        { returnOriginal: false }
+      );
+
+      if (response.value) {
         res.status(204).send();
       } else {
         res
