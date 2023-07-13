@@ -1,3 +1,4 @@
 node_modules
 .env
 taskify.json
+secret.json
