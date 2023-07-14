@@ -601,7 +601,7 @@
                 "status": {
                   "type": "string",
                   "example": "active"
-                },
+                }, 
                 "startDate": {
                   "type": "string",
                   "format": "date-time",
@@ -668,149 +668,210 @@
           }
         }
       }
-    }
-  },
-  "definitions": {
-    "User": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "example": "user123"
-        },
-        "name": {
-          "type": "string",
-          "example": "John Doe"
-        },
-        "email": {
-          "type": "string",
-          "example": "john.doe@example.com"
-        },
-        "username": {
-          "type": "string",
-          "example": "johndoe"
-        },
-        "password": {
-          "type": "string",
-          "example": "pa55w0rd"
-        },
-        "role": {
-          "type": "string",
-          "example": "manager"
-        },
-        "phoneNumber": {
-          "type": "string",
-          "example": "+123456789"
-        },
-        "address": {
-          "type": "string",
-          "example": "123 Main St, City"
+    },
+    "/comments/": {
+      "get": {
+        "tags": ["Taskify comments API endpoints"],
+        "description": "List of comments",
+        "summary": "Retrieves all comments in the database",
+        "parameters": [],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "404": {
+            "description": "The document was not found (e.g. incorrect route)"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Taskify comments API endpoints"],
+        "description": "Create a new comment",
+        "summary": "Creates a new comment",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "taskId": {
+                  "type": "string",
+                  "example": "node_task123"
+                },
+                "userId": {
+                  "type": "string",
+                  "example": "user_15666"
+                },
+                "text": {
+                  "type": "string",
+                  "example": "Great progress so far! Keep up the good work."
+                },
+                "likes": {
+                  "type": "number",
+                  "example": 9
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": ["tag1", "tag2"]
+                },
+                "replies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": [
+                    {
+                      "userId": "user156",
+                      "text": "Thank you!"
+                    },
+                    {
+                      "userId": "user200",
+                      "text": "Well Done!"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Server Error"
+          }
         }
       }
     },
-    "Task": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "example": "task123"
-        },
-        "title": {
-          "type": "string",
-          "example": "Taskify API Integration"
-        },
-        "description": {
-          "type": "string",
-          "example": "Integrate the Taskify API with the frontend application"
-        },
-        "assignee": {
-          "type": "string",
-          "example": "user123"
-        },
-        "status": {
-          "type": "string",
-          "example": "In progress"
-        },
-        "priority": {
-          "type": "string",
-          "example": "high"
-        },
-        "dueDate": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2023-07-02T12:00:00",
-          "description": "The due date and time for the task. Format: YYYY-MM-DDTHH:MM:SS"
-        },
-        "attachments": {
-          "type": "array",
-          "items": {
+    "/comments/{id}/": {
+      "get": {
+        "tags": ["Taskify comments API endpoints"],
+        "description": "Retrieve a comment by its id",
+        "summary": "Retrieves a comment by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "comment id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "404": {
+            "description": "The document was not found (e.g. incorrect route)"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Taskify comments API endpoints"],
+        "description": "Updates comments information",
+        "summary": "Updates information for a specific comment based on an ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Comment ID (required)",
+            "required": true,
             "type": "string"
           },
-          "example": ["attachment1", "attachment2"]
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "type": "string"
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "example": "Update comment text"
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": ["tag1", "tag2"]
+                }
+              },
+              "required": ["text"],
+              "additionalProperties": false
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content success (indicates that a request has succeeded)"
           },
-          "example": ["tag1", "tag2"]
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      },      
+      "delete": {
+        "tags": ["Taskify comments API endpoints"],
+        "summary": "Deletes a specific comment based on its ID",
+        "description": "Delete comment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "comment id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "500": {
+            "description": "Server Error"
+          }
         }
       }
     },
-    "Project": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "example": "project123"
-        },
-        "title": {
-          "type": "string",
-          "example": "Taskify Web API"
-        },
-        "description": {
-          "type": "string",
-          "example": "Develop a task management and collaboration web API"
-        },
-        "manager": {
-          "type": "string",
-          "example": "user123"
-        },
-        "status": {
-          "type": "string",
-          "example": "active"
-        },
-        "startDate": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2023-07-02T12:00:00",
-          "description": "The start date and time for the task. Format: YYYY-MM-DDTHH:MM:SS"
-        },
-        "dueDate": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2023-07-02T12:00:00",
-          "description": "The due date and time for the task. Format: YYYY-MM-DDTHH:MM:SS"
-        },
-        "teamMembers": {
-          "type": "array",
-          "items": {
-            "type": "string"
+    "/comments/tags/{tags}": {
+      "get": {
+        "tags": ["Taskify comments API endpoints"],
+        "description": "Retrieve comments by tags",
+        "summary": "Retrieves comment with the same tags",
+        "operationId": "getCommentsByTag",
+        "parameters": [
+          {
+            "name": "tags",
+            "in": "path",
+            "description": "Comment tags string is required and functions as an id",
+            "required": true,
+            "type": "string",
+            "items": {
+              "type": "string",
+              "default": "available"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object"
+            }
           },
-          "example": ["userAId", "userBId", "userCId"]
-        },
-        "tasks": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "example": ["taskId", "taskId"]
-        },
-        "progress": {
-          "type": "string",
-          "example": "70%"
-        }
+          "404": {
+            "description": "Invalid tag name"
+          }
       }
     }
   }
 }
+} 

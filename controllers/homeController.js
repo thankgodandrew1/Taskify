@@ -39,7 +39,7 @@ exports.getHome = (req, res) => {
           </style>
         </head>
         <body>
-          <h1>Hello, welcome to the Taskify Web API project!</h1>
+          <h1>Hello, Welcome to the Taskify Web API project!</h1>
           <a href="${loginLink}" style="position: absolute; font-family: cursive; top: 10px; right: 10px; color: white; background-color: blue; padding: 10px; text-decoration: none; border-radius: 8px; background-image: linear-gradient(to right, lightblue, blue, #008CBA); font-weight: bold;">Login</a>
         </body>
       </html>`
