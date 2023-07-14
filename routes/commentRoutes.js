@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const commentsController = require('../controllers/commentController');
 const { validateRoutes } = require('../utils/projectsAndCommentsRoutesValidation');
+const isAuthenticated = require('../middlewares/authentication');
 
 module.exports = (commentsCollection) => {
   const {
@@ -13,6 +14,7 @@ module.exports = (commentsCollection) => {
     deleteComment
   } = commentsController(commentsCollection);
 
+  router.use(isAuthenticated);
   router.get('/', getComments);
   router.get('/:id', getCommentById);
 
