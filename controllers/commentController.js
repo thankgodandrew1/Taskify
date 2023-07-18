@@ -94,29 +94,11 @@ module.exports = (commentsCollection) => {
       res.status(500).json(err);
     }
   };
-  const getCommentsByTags = async (req, res) => {
-    try {
-      const { tags } = req.params;
-      const tagList = tags.split(',');
-
-      const comments = await commentsCollection.find({ tags: { $in: tagList } }).toArray();
-      if (comments.length === 0) {
-        return res.status(404).json({ message: 'No comments found with the specified tags' });
-      }
-
-      res.json(comments);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Server error');
-    }
-  };
-
   return {
     getComments,
     getCommentById,
     createComment,
     updateComment,
-    deleteComment,
-    getCommentsByTags
+    deleteComment
   };
 };

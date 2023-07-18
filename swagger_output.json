@@ -839,39 +839,6 @@
           }
         }
       }
-    },
-    "/comments/tags/{tags}": {
-      "get": {
-        "tags": ["Taskify comments API endpoints"],
-        "description": "Retrieve comments by tags",
-        "summary": "Retrieves comment with the same tags",
-        "operationId": "getCommentsByTag",
-        "parameters": [
-          {
-            "name": "tags",
-            "in": "path",
-            "description": "Comment tags string is required and functions as an id",
-            "required": true,
-            "type": "string",
-            "items": {
-              "type": "string",
-              "default": "available"
-            }
-          }
-        ],
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object"
-            }
-          },
-          "404": {
-            "description": "Invalid tag name"
-          }
-      }
     }
-  }
 }
 } 

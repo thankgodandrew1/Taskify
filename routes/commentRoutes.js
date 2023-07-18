@@ -8,7 +8,6 @@ module.exports = (commentsCollection) => {
   const {
     getComments,
     getCommentById,
-    getCommentsByTags,
     createComment,
     updateComment,
     deleteComment
@@ -17,8 +16,6 @@ module.exports = (commentsCollection) => {
   router.use(isAuthenticated);
   router.get('/', getComments);
   router.get('/:id', getCommentById);
-
-  router.get('tags/:tags', getCommentsByTags);
 
   router.post('/', validateRoutes('createComment'), createComment);
 
