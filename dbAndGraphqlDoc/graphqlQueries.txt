@@ -1,0 +1,186 @@
+***************************************************************************
+*        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       *
+*        @   GRAPHQL QUERIES & MUTATIONS FOR THE TASKIFY PROJECT   @       * 
+*        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@       *
+****************************************************************************
+
+COPY AND PASTE A QUERY OR MUTATION ON THE PROJECT /graphql ROUTE AND RUN.
+INPUT THE ID FOR PUT AND DELETE REQUESTS WHEN REQUIRED
+
+// Get all users, projects, tasks, and comments query
+query {
+  users
+}
+
+query {
+  projects
+  }
+
+query {
+  tasks
+}
+
+query {
+  comments
+}
+
+**********************************************************
+        //////////////////////////////////
+**********************************************************
+
+//Get all users, projects, tasks, and comments by id query
+query {
+  user(_id: "userId")
+}
+query {
+  project(_id: "projectId")
+}
+query {
+  task(_id: "taskId")
+}
+query {
+  comment(_id: "commentId")
+}
+
+**********************************************************
+        //////////////////////////////////
+**********************************************************
+
+// Create, Update and Delete user mutation queries
+mutation {
+  createUser(
+    name: "Danny"
+    email: "dannyCo@cse341.com"
+    username: "dannyCo"
+    password: "pa55W@rd"
+    role: "managr"
+    phoneNumber: "+123456789"
+    address: "Somewhere Somewhere Street"
+  )
+}
+
+mutation {
+  updateUser(
+    _id: "userId"
+    name: "Daniella"
+    email: "janesmith@example.com"
+    username: "Hraesvelgr"
+    password: "newpassword"
+    role: "admin"
+    phoneNumber: "987654321"
+    address: "456 Eleme St"
+  ) 
+}
+
+mutation {
+  deleteUser(_id: "userId") 
+}
+
+**********************************************************
+        //////////////////////////////////
+**********************************************************
+
+// Create, Update and Delete project mutation queries
+mutation {
+  createProject(
+    title: "Taskify Project"
+    description: "This is a new project"
+    manager: "Daniella"
+    status: "in_progress"
+    startDate: "2023-07-07"
+    dueDate: "2023-08-08"
+    teamMembers: ["user1", "user2"]
+    tasks: ["task1", "task2"]
+    progress: "50%"
+  )
+}
+
+mutation {
+  updateProject(
+    _id: "projectId"
+    title: "Updated Project Title"
+    description: "Updated project description"
+    manager: "Jane Smith"
+    status: "Completed"
+    startDate: "2023-07-07"
+    dueDate: "2023-09-09"
+    teamMembers: ["user1", "user2", "user3"]
+    tasks: ["task1", "task2", "task3"]
+    progress: "100%"
+  )
+}
+
+mutation {
+  deleteProject(_id: "projectId") 
+}
+
+**********************************************************
+        //////////////////////////////////
+**********************************************************
+
+// Create, Update and Delete tasks mutation queries
+
+mutation {
+  createTask(
+    title: "The new Taskify Task"
+    description: "This is a new node project"
+    assignee: "Daniella"
+    status: "in_progress"
+    priority: "High"
+    dueDate: "2024-01-08"
+    attachments: ["attachment1", "attachment2"]
+    tags: ["tag1", "tag2"]
+  )}
+
+mutation {
+  updateTask(
+    _id: "taskId"
+    title: "Updated Task Title"
+    description: "Updated task description"
+    assignee: "Drogba"
+    status: "Completed"
+    priority: "Low"
+    dueDate: "2024-08-08"
+    attachments: ["attachment1", "attachment2", "attachment3"]
+    tags: ["tag1", "tag2", "tag3"]
+  )
+}
+
+mutation {
+  deleteTask(_id: "taskId") 
+}
+
+**********************************************************
+        //////////////////////////////////
+**********************************************************
+
+// Create, Update and Delete comments mutation queries
+
+mutation {
+  createComment(
+    taskId: "taskId"
+    userId: "userId"
+    text: "This is a new comment"
+    likes: "39"
+    replies: ["repie", "60db32acaaee7"]
+    tags: ["tag1", "tag2"]
+  )
+}
+
+mutation {
+  updateComment(
+    _id: "commentId"
+    text: "I updated the comment text for fun"
+    tags: ["updated tag too"]
+  )
+}
+
+mutation {
+  deleteComment(_id: "commentId")
+}
+
+**********************************************************
+*        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             *
+*        @              THE END            @             *
+*        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             *
+**********************************************************

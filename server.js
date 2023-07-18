@@ -3,12 +3,14 @@ const dotenv = require('dotenv');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
+const { graphqlHTTP } = require('express-graphql');
 
 const homeRoute = require('./routes/homeRoute');
 const db = require('./config/db');
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger_output.json');
 const isAuthenticated = require('./middlewares/authentication');
+const schema = require('./schemas/schema');
 
 const usersRoute = require('./routes/userRoutes');
 const tasksRoute = require('./routes/taskRoutes');
@@ -88,6 +90,26 @@ db.connect()
     app.use('/tasks', tasksRoute(database.tasksCollection));
     app.use('/projects', projectsRoute(database.projectsCollection));
     app.use('/comments', commentsRoute(database.commentsCollection));
+
+    app.use(
+      '/graphql',
+      (req, res, next) => {
+        if (!req.isAuthenticated()) {
+          return res.redirect('/login');
+        }
+        next();
+      },
+      graphqlHTTP({
+        schema: schema,
+        context: {
+          tasksCollection: database.tasksCollection,
+          usersCollection: database.usersCollection,
+          projectsCollection: database.projectsCollection,
+          commentsCollection: database.commentsCollection
+        },
+        graphiql: true
+      })
+    );
 
     app.use((req, res, next) => {
       const error = new Error('Not found');
